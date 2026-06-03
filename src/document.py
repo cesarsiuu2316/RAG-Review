@@ -1,6 +1,7 @@
 from langchain_core.documents import Document
 from langchain_community.document_loaders import PyMuPDFLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from embedding_manager import EmbeddingManager
 
 def loading_txt_json_md_document_from_file(file_path: str) -> Document:
     # Determine the file type based on the file extension for pdf, txt, json, md
@@ -39,11 +40,15 @@ def main():
     #for doc in docs:
         #print(doc)
 
-    # Split the documents
+    # Split the documents in chunks
     split_docs = split_documents(docs)
     print(f"Number of split documents: {len(split_docs)}, Original number of documents: {len(docs)}")
     print(f"First split document: {split_docs[0]}\n")
     print(f"Second split document: {split_docs[1]}")
 
+    # Initialize embedding manager
+    embedding_manager = EmbeddingManager()
+
+    
 if __name__ == "__main__":
     main()
