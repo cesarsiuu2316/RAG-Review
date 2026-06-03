@@ -1,8 +1,7 @@
 
 import chromadb
-from chromadb.config import Settings
 import uuid
-from typing import List, Dict, Any, Tuple
+from langchain_core.documents import Document
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
 import os
@@ -45,7 +44,7 @@ class VectorStore:
             raise e
 
 
-    def add_documents_and_embeddings(self, documents: List[Any], embeddings: np.ndarray):
+    def add_documents_and_embeddings(self, documents: list[Document], embeddings: np.ndarray):
         """
         Add documents and their embeddings to the vector store
         

@@ -6,6 +6,7 @@ Retrieval-Augmented Generation is the process of optimizing the output of an LLM
 
 Tips: 
 - Dealing with folders is easier with pathlib, os and glob 
+- Use tqdm for checking process and cuda if available. 
 
 1. Parsing data
 
@@ -41,9 +42,30 @@ Text Splitters
 
 Creating numerical representations for text and storing them in vectors
 
+Creating an embedding manager to better control how embeddings are made and load the transformer model allows for good management. 
+Hugging face transformers are very common.
+
 3. VectorDBs
 
 Storing embeddings vectors in vectorDBs to avoid having to create the embeddings again
+
+ChromaDB 
+
+- Full vector database that allows you to store persistently all indexes, original text, embeddings and metadata with search engine
+- Supports metadata filtering
+- has built-in add/query APIs
+- Heavier dependency and not as fast at large scale.
+
+FAISS 
+
+- Library engine to store only vectors and find the nearest ones to a query vector
+- Extremely fast, even for billions of vectors
+- Doesn't manage anything else (persistency, storage, or metadata filtering)
+- Runs locally
+
+How to choose, briefly: for local development and learning, Chroma or FAISS (you've already got the two best entry points). If you want local-but-more-scalable, Qdrant or LanceDB. If you already use Postgres, pgvector saves you running a second system. If you want zero infrastructure management and don't mind paying, Pinecone.
+
+Self-hosted servers, scale-oriented: Qdrant (rust based with strong filtering), Milvus, Weaviate (also offers hybrid keyword+vector search and a cloud option), pgvector — which is worth special mention: it's an extension that adds vector search to PostgreSQL, so if you already run Postgres, you can store embeddings right alongside your normal relational data, no separate system.
 
 ## Retrieval Pipelinee
 
